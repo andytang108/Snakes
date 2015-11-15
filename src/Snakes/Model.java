@@ -30,7 +30,6 @@ class Model extends Observable implements Runnable {
     boolean paused = false;                     // 暂停标志
 
     int score = 0;                              // 得分
-    int countMove = 0;                          // 吃到食物前移动的次数
 
     // UP and DOWN should be even
     // RIGHT and LEFT should be odd
@@ -50,8 +49,7 @@ class Model extends Observable implements Runnable {
         direction = Model.UP;              // 蛇运行的方向
         timeInterval = 200;                     // 时间间隔，毫秒
         paused = false;                         // 暂停标志
-        score = 0;                              // 得分
-        countMove = 0;      
+        score = 0;                              // 得分   
         running = true;// 吃到食物前移动的次数
 
         // initial matirx, 全部清0
@@ -115,8 +113,7 @@ class Model extends Observable implements Runnable {
                     // 分数规则，与移动改变方向的次数和速度两个元素有关
                     
                     score += 10+ timeInterval/50;
-                    countMove = 0;
-
+                    
                     food = createFood();               
                     matrix[food.x][food.y] = true;      
                     return true;
@@ -128,7 +125,6 @@ class Model extends Observable implements Runnable {
                 matrix[x][y] = true;
                 n = (Node) nodeArray.removeLast();
                 matrix[n.x][n.y] = false;
-                countMove++;
                 return true;
             }
         }
@@ -183,15 +179,5 @@ class Model extends Observable implements Runnable {
 
     public void changePauseState() {
         paused = !paused;
-    }
-}
-
-class Node {
-    int x;
-    int y;
-
-    Node(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 }
