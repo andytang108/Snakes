@@ -91,11 +91,12 @@ public class StartingPage extends javax.swing.JFrame {
 
     private void btnHostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHostActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnHostActionPerformed
 
     private void btnSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSingleActionPerformed
         // TODO add your handling code here:
-        
+        Snakes.main();
     }//GEN-LAST:event_btnSingleActionPerformed
 
     /**
