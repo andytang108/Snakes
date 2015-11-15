@@ -12,7 +12,7 @@ package Snakes;
 
 
 public class Snakes {
-   public static void main(String[] args) {
+   public static void main() {
        Model model = new Model(30,30);
        Control control = new Control(model);
        View view = new View(model,control);
