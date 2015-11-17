@@ -13,10 +13,34 @@ import java.util.*;
  *
  * @author ribomo
  */
+
 public class Server {
     int port;
     ServerSocket ss;
-    Model serverModel;
-    Model clientModel;
+    ServerModel serverModel = new ServerModel(30,30);
+    
+    
+    public Server(int port){
+        this.port = port;
+        
+        try {
+            ss = new ServerSocket(port);
+        }
+        catch (Exception exc1) {
+            exc1.printStackTrace();
+        }
+    }
+    
+   
+    
+    public void close(){
+        try{
+            ss.close();
+        }
+        catch(Exception exc1){
+            exc1.printStackTrace();
+        }
+    }
+    
     
 }
