@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  *
- * @author ribomo
+ * @author ribomo, Jingyi Tang
  */
 public class SnakeModel {
     private LinkedList<Node> nodeArray;  
@@ -34,7 +34,7 @@ public class SnakeModel {
         this.score = 0;
     }
     
-    public SnakeModel(int maxX, int maxY){
+    public boolean[][] initSnakeModelA(int maxX, int maxY, boolean[][] matrix){
         int initArrayLength = maxX > 20 ? 10 : maxX / 2;
         nodeArray.clear();
         for (int i = 0; i < initArrayLength; ++i) {
@@ -42,8 +42,23 @@ public class SnakeModel {
             int y = maxY / 2;
             
             nodeArray.addLast(new Node(x, y));
+            matrix[x][y] = true;
         }
+        return matrix;
     }
+    public boolean[][] initSnakeModelB(int maxX, int maxY, boolean[][] matrix){
+        int initArrayLength = maxX > 20 ? 10 : maxX / 2;
+        nodeArray.clear();
+        for (int i = 0; i < initArrayLength; ++i) {
+            int x = maxX / 3 - i;
+            int y = maxY / 3;
+            
+            nodeArray.addLast(new Node(x, y));
+            matrix[x][y] = true;
+        }
+        return matrix;
+    }
+    
 
     /**
      * @return the nodeArray

@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  *
- * @author ribomo
+ * @author ribomo,Jingyi Tang
  */
 public class ServerModel {
     // UP and DOWN should be even
@@ -19,18 +19,19 @@ public class ServerModel {
     public static final int LEFT = 1;
     public static final int RIGHT = 3;
     
-    SnakeModel player1;
-    SnakeModel player2;
+    private SnakeModel player1 = new SnakeModel();
+    private SnakeModel player2 = new SnakeModel();
     
-    boolean[][] matrix;
-    Node food;
-    int maxX;
-    int maxY;
-    boolean running = false;
+    private boolean[][] matrix;
+    private Node food;
+    private int maxX;
+    private int maxY;
+    private boolean running = false;
     
     int timeInterval;
     double speedChangeRate = 0.6;        
     boolean paused;
+ 
     
     public ServerModel(int maxX, int maxY){
         this.maxX = maxX;
@@ -44,44 +45,136 @@ public class ServerModel {
             this.matrix[i] = new boolean[maxY];
             Arrays.fill(this.matrix[i], false);
         }
+        this.matrix = this.player1.initSnakeModelA(this.maxX, this.maxY, this.matrix);
+        this.matrix = this.player2.initSnakeModelB(this.maxX, this.maxY, this.matrix);
         
+        this.food = createFood();
+        this.matrix[food.x][food.y] = true;
         
     }
     
-    public void paintSnake(int snakeNum){
-        SnakeModel snake;
-        if(snakeNum == 1){
-            snake = this.player1;
-        }
-        else{
-            snake = this.player2;
-        }
-        LinkedList <Node>snakeNode = snake.getNodeArray().;
-        
-        for(int i = 0;i < snakeNode.size(); i++){
-            matrix[snakeNode.][snakeNode[i].y] = true;
-        }
+    private Node createFood() {
+        int x = 0;
+        int y = 0;
+        do{
+            Random r = new Random();
+            x = r.nextInt(getMaxX());
+            y = r.nextInt(getMaxY());
+        } while (getMatrix()[x][y]);
+
+        return new Node(x, y);
     }
+    public void speedUp() {
+        this.timeInterval *= this.speedChangeRate;
+    }
+
+    public void speedDown() {
+        this.timeInterval /= this.speedChangeRate;
+    }
+
+    public void changePauseState() {
+        this.paused = !this.paused;
+    }
+
     
-    public void initSnakeNode(int  snakeNum){
-        SnakeModel snake;
-        if(snakeNum == 1){
-            snake = this.player1;
-        }
-        else{
-            snake = this.player2;
-        }
-        
-        
-        // 初始化蛇体，如果横向位置超过20个，长度为10，否则为横向位置的一半
-        int initArrayLength = maxX > 20 ? 10 : maxX / 2;
-        snake.getNodeArray().clear();
-        for (int i = 0; i < initArrayLength; ++i) {
-            int x = maxX / 2 + i;
-            int y = maxY / 2;
-            
-            snake.addLast(new Node(x, y));
-            matrix[x][y] = true;
-        }
+    
+    
+    /**
+     * @return the player1
+     */
+    public SnakeModel getPlayer1() {
+        return player1;
     }
+
+    /**
+     * @param player1 the player1 to set
+     */
+    public void setPlayer1(SnakeModel player1) {
+        this.player1 = player1;
+    }
+
+    /**
+     * @return the player2
+     */
+    public SnakeModel getPlayer2() {
+        return player2;
+    }
+
+    /**
+     * @param player2 the player2 to set
+     */
+    public void setPlayer2(SnakeModel player2) {
+        this.player2 = player2;
+    }
+
+    /**
+     * @return the matrix
+     */
+    public boolean[][] getMatrix() {
+        return matrix;
+    }
+
+    /**
+     * @param matrix the matrix to set
+     */
+    public void setMatrix(boolean[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    /**
+     * @return the food
+     */
+    public Node getFood() {
+        return food;
+    }
+
+    /**
+     * @param food the food to set
+     */
+    public void setFood(Node food) {
+        this.food = food;
+    }
+
+    /**
+     * @return the maxX
+     */
+    public int getMaxX() {
+        return maxX;
+    }
+
+    /**
+     * @param maxX the maxX to set
+     */
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    /**
+     * @return the maxY
+     */
+    public int getMaxY() {
+        return maxY;
+    }
+
+    /**
+     * @param maxY the maxY to set
+     */
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
+    /**
+     * @return the running
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * @param running the running to set
+     */
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+   
 }
