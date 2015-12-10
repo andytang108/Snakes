@@ -95,8 +95,6 @@ public class View implements Observer {
         JLabel labelHelp;
         labelHelp = new JLabel("PageUp, PageDown for speed;", JLabel.CENTER);
         panelButtom.add(labelHelp, BorderLayout.NORTH);
-        labelHelp = new JLabel("ENTER or R or S for start;", JLabel.CENTER);
-        panelButtom.add(labelHelp, BorderLayout.CENTER);
         labelHelp = new JLabel("SPACE or P for pause", JLabel.CENTER);
         panelButtom.add(labelHelp, BorderLayout.SOUTH);
         cp.add(panelButtom, BorderLayout.SOUTH);
@@ -135,7 +133,7 @@ public class View implements Observer {
         Node n = smodel.food;
         drawNode(g, n);
 
-        updateScore();
+        updateScore2();
     }
     
     void repaint() {
@@ -171,6 +169,10 @@ public class View implements Observer {
 
     public void updateScore() {
         String s = "Score: " + model.score;
+        labelScore.setText(s);
+    }
+    public void updateScore2() {
+        String s = "Score: " + smodel.score1;
         labelScore.setText(s);
     }
 
