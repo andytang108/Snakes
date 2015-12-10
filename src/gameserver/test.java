@@ -16,7 +16,6 @@ public class test {
         while(true){
             String text = c.getText();
             System.out.println(text);
-            c.sendText("I got the number: "+text);
         }
     }
 }

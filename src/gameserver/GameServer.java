@@ -9,15 +9,18 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.TimeUnit;
 import java.util.*;
+import Snakes.ServerModel;
 
 /**
  *
  * @author ribomo
  */
 public class GameServer implements Runnable {
-
     Socket gameSocket;
     int playerNum;
+    ServerModel sm;
+    ServerModel smP1;
+    ServerModel smP2;
 
     GameServer(Socket s,int playerNum) {
         this.gameSocket = s;
@@ -38,20 +41,53 @@ public class GameServer implements Runnable {
     
     public void run() {
         try {
-            System.out.println("Haha");
-            PrintWriter out = new PrintWriter(gameSocket.getOutputStream(),true);
-            Scanner in = new Scanner(gameSocket.getInputStream());
-            out.println("your player number is: "+ playerNum);
-            for(int i = 0;i<100;i++){
-                TimeUnit.SECONDS.sleep(1);
-                out.println(Integer.toString(i));
-                System.out.println(in.nextLine());
+            ObjectInputStream objIn = new ObjectInputStream(gameSocket.getInputStream());
+            ObjectOutputStream objOut = new ObjectOutputStream(gameSocket.getOutputStream());
+            PrintWriter out = new PrintWriter(gameSocket.getOutputStream());
+            boolean isContinue = true;
+            
+            out.println("1");
+            
+            while(isContinue){
+                Object obj = objIn.readObject();
+                if(obj instanceof ServerModel){
+                    ServerModel smObject = (ServerModel) obj;
+                    if(playerNum == 1){
+                        smP1 = smObject;
+                    }
+                    else if(playerNum == 2){
+                        smP2 = smObject;
+                    }
+                    if(smP1 != null && smP2 != null){
+                        sm = mergeServerModel(smP1,smP2);
+                        smP1 = null;
+                        smP2 = null;
+                        objOut.writeObject(sm);
+                    }
+                }
             }
             gameSocket.close();
         } catch (IOException e) {
             System.out.println(e);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException e){
+            System.out.println(e);
         }
+    }
+    
+    public ServerModel mergeServerModel(ServerModel sm1, ServerModel sm2){
+        ServerModel result = new ServerModel(sm1.getMaxX(),sm1.getMaxY());
+        result.setDirection1(sm1.getDirection1());
+        result.setDirection2(sm2.getDirection2());
+        result.setFood(sm1.getFood());
+        result.setMatrix(sm1.getMatrix());
+        result.setNodeArray(sm1.getNodeArray());
+        result.setNodeArray2(sm2.getNodeArray2());
+        result.setRunning(sm1.isRunning());
+        result.setScore1(sm1.getScore1());
+        result.setScore2(sm1.getScore2());
+        result.setSpeedChangeRate(sm1.getSpeedChangeRate());
+        result.setTimeInterval(sm1.getTimeInterval());
+        
+        return result;
     }
 }
