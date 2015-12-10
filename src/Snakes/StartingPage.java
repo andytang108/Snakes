@@ -27,10 +27,44 @@ public class StartingPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        diaHost = new javax.swing.JDialog();
+        txtIP = new javax.swing.JTextField();
+        btnConnect = new javax.swing.JButton();
         btnSingle = new javax.swing.JButton();
         btnHost = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnJoin = new javax.swing.JButton();
+
+        btnConnect.setText("Connect");
+        btnConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConnectActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout diaHostLayout = new javax.swing.GroupLayout(diaHost.getContentPane());
+        diaHost.getContentPane().setLayout(diaHostLayout);
+        diaHostLayout.setHorizontalGroup(
+            diaHostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diaHostLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(diaHostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIP)
+                    .addGroup(diaHostLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(btnConnect)
+                        .addGap(0, 63, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        diaHostLayout.setVerticalGroup(
+            diaHostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diaHostLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConnect)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 250));
@@ -91,13 +125,25 @@ public class StartingPage extends javax.swing.JFrame {
 
     private void btnHostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHostActionPerformed
         // TODO add your handling code here:
-        
+        diaHost.setVisible(true);
+        diaHost.pack();
     }//GEN-LAST:event_btnHostActionPerformed
 
     private void btnSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSingleActionPerformed
         // TODO add your handling code here:
         Snakes.main();
     }//GEN-LAST:event_btnSingleActionPerformed
+
+    private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
+        // TODO add your handling code here:
+        Model model = new Model(30,30);
+       Control control = new Control(model);
+       View view = new View(model,control);
+       //添加一个观察者，让view成为model的观察者
+       model.addObserver(view);
+      
+       (new Thread(model)).start();
+    }//GEN-LAST:event_btnConnectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,9 +181,12 @@ public class StartingPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConnect;
     private javax.swing.JButton btnHost;
     private javax.swing.JButton btnJoin;
     private javax.swing.JButton btnSingle;
+    private javax.swing.JDialog diaHost;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField txtIP;
     // End of variables declaration//GEN-END:variables
 }

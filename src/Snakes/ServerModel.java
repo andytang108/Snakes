@@ -64,6 +64,7 @@ public class ServerModel {
 
         return new Node(x, y);
     }
+    
     public void speedUp() {
         this.timeInterval *= this.speedChangeRate;
     }
@@ -76,9 +77,6 @@ public class ServerModel {
         this.paused = !this.paused;
     }
 
-    
-    
-    
     /**
      * @return the player1
      */

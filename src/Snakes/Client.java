@@ -5,62 +5,83 @@
  */
 package Snakes;
 
-/**
- *
- * @author Jingyi_Tang
- */
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/**
+ *
+ * @author ribomo
+ */
 public class Client {
+    String ip;
     int port;
     Socket s;
-    String ip;
-    ServerModel client1Model;
-    ServerModel client2Model;
-    
-    public Client(String ip, int port) throws IOException {
+
+    public Client(String ip, int port){
         this.ip = ip;
         this.port = port;
-        s = new Socket(ip, port);
-    }
-    
-    public void sendModel(ServerModel serverModel){
         try{
+            s = new Socket(ip, port);
+        }
+        catch (Exception exc1) {
+            exc1.printStackTrace();
+        }
+    }
+
+    public void sendText(String text) {
+        try {
             OutputStream outStream = s.getOutputStream();
             PrintWriter out = new PrintWriter(outStream, true);
-           
-            
-            
-            
+            out.println(text);
         }
-        catch(IOException ioexc)
-        {
-            ioexc.printStackTrace();
+        catch (Exception exc1) {
+            exc1.printStackTrace();
         }
     }
-    public void receiveModel(){
-        try{
-            InputStream inputStream = s.getInputStream();
-            Scanner in = new Scanner(inputStream);
-            
-               
-            
-            
+
+    public String getText() {
+        try {
+            InputStream inStream = s.getInputStream();
+            Scanner in = new Scanner(inStream);
+            String line = in.nextLine();
+            return line;
         }
-        catch(IOException ioexc)
-        {
-            ioexc.printStackTrace();
+        catch (Exception exc1) {
+            exc1.printStackTrace();
         }
-        
+        return "";
     }
+    
     public void close(){
         try{
             s.close();
         }
         catch(Exception exc1){
             exc1.printStackTrace();
+        }
+    }
+    
+    public void sendObject(Object o){
+        try{
+            OutputStream outStream = s.getOutputStream();
+            ObjectOutputStream objectStream = new ObjectOutputStream(outStream);
+            objectStream.writeObject(o);
+        }
+        catch(Exception exc1){
+            exc1.printStackTrace();
+        }
+    }
+    
+    public Object receiveObject(){
+        try{
+            InputStream inStream = s.getInputStream();
+            ObjectInputStream objectStream = new ObjectInputStream(inStream);
+            return objectStream.readObject();
+        }
+        catch(Exception exc1){
+            exc1.printStackTrace();
+            return null;
         }
     }
 }
