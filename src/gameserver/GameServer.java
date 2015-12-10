@@ -19,6 +19,8 @@ public class GameServer implements Runnable {
     Socket gameSocket;
     int playerNum;
     ServerModel sm;
+    ServerModel smP1;
+    ServerModel smP2;
 
     GameServer(Socket s,int playerNum) {
         this.gameSocket = s;
@@ -39,20 +41,31 @@ public class GameServer implements Runnable {
     
     public void run() {
         try {
-            System.out.println("Haha");
-            PrintWriter out = new PrintWriter(gameSocket.getOutputStream(),true);
-            Scanner in = new Scanner(gameSocket.getInputStream());
-            out.println("your player number is: "+ playerNum);
-            for(int i = 0;i<100;i++){
-                TimeUnit.SECONDS.sleep(1);
-                out.println(Integer.toString(i));
-                System.out.println(in.nextLine());
+            ObjectInputStream objIn = new ObjectInputStream(gameSocket.getInputStream());
+            ObjectOutputStream objOut = new ObjectOutputStream(gameSocket.getOutputStream());
+            Boolean isContinue = true;
+            while(isContinue){
+                Object obj = objIn.readObject();
+                if(obj instanceof ServerModel){
+                    ServerModel smObject = (ServerModel) obj;
+                    //If the other player haven't pass their model to server
+                    if(temp == null){
+                        temp = smObject;
+                    }
+                    else{
+                        
+                    }
+                }
             }
             gameSocket.close();
         } catch (IOException e) {
             System.out.println(e);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException e){
+            System.out.println(e);
         }
+    }
+    
+    public ServerModel mergeServerModel(ServerModel sm1, ServerModel sm2){
+        ServerModel result = new ServerModel(sm1.get)
     }
 }
