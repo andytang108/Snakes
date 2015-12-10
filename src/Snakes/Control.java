@@ -13,10 +13,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class Control  implements KeyListener{
+public class Control implements KeyListener{
     Model model;
 
     public Control(Model model){
+        this.model = model;
+    }
+    public Control(ServerModel model){
         this.model = model;
     }
 

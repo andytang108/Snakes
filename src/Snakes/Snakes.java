@@ -21,4 +21,12 @@ public class Snakes {
       
        (new Thread(model)).start();
    }
+   public static void main2(){
+       ServerModel model = new ServerModel(30,30);
+       Control control = new Control(model);
+       View view = new View(model,control);
+       
+       model.addObserver(view);
+       (new Thread(model)).start();
+   }
 }
