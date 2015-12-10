@@ -9,15 +9,16 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.TimeUnit;
 import java.util.*;
+import Snakes.ServerModel;
 
 /**
  *
  * @author ribomo
  */
 public class GameServer implements Runnable {
-
     Socket gameSocket;
     int playerNum;
+    ServerModel sm;
 
     GameServer(Socket s,int playerNum) {
         this.gameSocket = s;

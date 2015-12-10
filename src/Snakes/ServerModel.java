@@ -16,7 +16,7 @@ import java.util.Observable;
 import java.util.Random;
 
 
-class ServerModel extends Model{
+public class ServerModel extends Model{
     LinkedList nodeArray2 = new LinkedList(); // 蛇体1,2
     
     
