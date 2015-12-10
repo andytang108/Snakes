@@ -43,7 +43,11 @@ public class GameServer implements Runnable {
         try {
             ObjectInputStream objIn = new ObjectInputStream(gameSocket.getInputStream());
             ObjectOutputStream objOut = new ObjectOutputStream(gameSocket.getOutputStream());
-            Boolean isContinue = true;
+            PrintWriter out = new PrintWriter(gameSocket.getOutputStream());
+            boolean isContinue = true;
+            
+            out.println("1");
+            
             while(isContinue){
                 Object obj = objIn.readObject();
                 if(obj instanceof ServerModel){

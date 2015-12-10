@@ -36,6 +36,12 @@ public class ServerModel extends Model{
 
         reset2();
     }
+    
+    public ServerModel(int maxX, int maxY, int playerNumber) {
+        super(maxX,maxY);
+        this.player = playerNumber;
+        reset2();
+    }
 
     private void reset2(){
         setDirection1(Model.UP);
@@ -44,14 +50,9 @@ public class ServerModel extends Model{
         setPaused(false);                         // 暂停标志
         setScore1(0);
         setScore2(0);// 得分   
-<<<<<<< HEAD
         setRunning(true);
-        this.setPlayer(1);
-=======
-        running = true;
-        this.setPlayer(2);
->>>>>>> master
-
+        
+        
         // initial matirx, 全部清0
         setMatrix(new boolean[getMaxX()][]);
         for (int i = 0; i < getMaxX(); ++i) {

@@ -58,13 +58,9 @@ public class Control implements KeyListener{
             }
         }
         if(smodel != null){
-<<<<<<< HEAD
             if (smodel.isRunning()){
-                System.out.println(smodel.getPlayer());
-=======
-            if (smodel.running){
                 int player = smodel.getPlayer();
->>>>>>> master
+
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
                         if(player == 2){
