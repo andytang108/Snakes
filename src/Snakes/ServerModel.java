@@ -124,7 +124,7 @@ public class ServerModel extends Model{
             } else {                 
                 nodeArray2.addFirst(new Node(x2, y2));
                 matrix[x2][y2] = true;
-                n2 = (Node) nodeArray.removeLast();
+                n2 = (Node) nodeArray2.removeLast();
                 matrix[n2.x][n2.y] = false;
                 return true;
             }
@@ -161,7 +161,7 @@ public class ServerModel extends Model{
 
                     // 分数规则，与移动改变方向的次数和速度两个元素有关
                     
-                    score1 += 10+ timeInterval/50;
+                    score1 += 5+ timeInterval/50;
                     
                     food = createFood();               
                     matrix[food.x][food.y] = true;      
@@ -192,13 +192,19 @@ public class ServerModel extends Model{
             }
 
             if (!paused) {
-                if (moveOn1()) {
+                if (moveOn2()&&moveOn1()) {
                     setChanged();           // Model通知View数据已经更新
                     notifyObservers();
-                } else {
+                }else if(!moveOn1()) {
                     JOptionPane.showMessageDialog(null,
-                            "Your final score is "+score1+".",
-                            "Game Over",
+                            "Your final score is "+score1+". But you lost!!!",
+                            "Get Rekt",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                }else{
+                    JOptionPane.showMessageDialog(null,
+                            "Your final score is "+score1+". You win!!!",
+                            "Congrat!",
                             JOptionPane.INFORMATION_MESSAGE);
                     break;
                 }
