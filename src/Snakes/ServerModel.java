@@ -44,8 +44,13 @@ public class ServerModel extends Model{
         setPaused(false);                         // 暂停标志
         setScore1(0);
         setScore2(0);// 得分   
+<<<<<<< HEAD
         setRunning(true);
         this.setPlayer(1);
+=======
+        running = true;
+        this.setPlayer(2);
+>>>>>>> master
 
         // initial matirx, 全部清0
         setMatrix(new boolean[getMaxX()][]);
@@ -200,17 +205,35 @@ public class ServerModel extends Model{
                     setChanged();           // Model通知View数据已经更新
                     notifyObservers();
                 }else if(!moveOn1()) {
-                    JOptionPane.showMessageDialog(null,
-                            "Your final score is "+(getScore1()-150)+". You lost!!!",
-                            "Get Rekt",
+                    if(this.getPlayer()==1){
+                        JOptionPane.showMessageDialog(null,
+                                "Your final score is "+(getScore1()-150)+". You lost!!!",
+                                "Get Rekt",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    }else{
+                        JOptionPane.showMessageDialog(null,
+                            "Your final score is "+getScore2()+". You win!!!",
+                            "Congrat!",
                             JOptionPane.INFORMATION_MESSAGE);
-                    break;
+                        break;
+                    }
+                   
                 }else{
-                    JOptionPane.showMessageDialog(null,
+                    if(this.getPlayer()==1){
+                        JOptionPane.showMessageDialog(null,
                             "Your final score is "+getScore1()+". You win!!!",
                             "Congrat!",
                             JOptionPane.INFORMATION_MESSAGE);
-                    break;
+                        break;
+                    }else{
+                        JOptionPane.showMessageDialog(null,
+                                "Your final score is "+(getScore2()-150)+". You lost!!!",
+                                "Get Rekt",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    }
+                    
                 }
             }
         }

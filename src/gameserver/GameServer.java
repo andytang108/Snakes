@@ -48,12 +48,17 @@ public class GameServer implements Runnable {
                 Object obj = objIn.readObject();
                 if(obj instanceof ServerModel){
                     ServerModel smObject = (ServerModel) obj;
-                    //If the other player haven't pass their model to server
-                    if(temp == null){
-                        temp = smObject;
+                    if(playerNum == 1){
+                        smP1 = smObject;
                     }
-                    else{
-                        
+                    else if(playerNum == 2){
+                        smP2 = smObject;
+                    }
+                    if(smP1 != null && smP2 != null){
+                        sm = mergeServerModel(smP1,smP2);
+                        smP1 = null;
+                        smP2 = null;
+                        objOut.writeObject(sm);
                     }
                 }
             }
@@ -66,6 +71,19 @@ public class GameServer implements Runnable {
     }
     
     public ServerModel mergeServerModel(ServerModel sm1, ServerModel sm2){
-        ServerModel result = new ServerModel(sm1.get)
+        ServerModel result = new ServerModel(sm1.getMaxX(),sm1.getMaxY());
+        result.setDirection1(sm1.getDirection1());
+        result.setDirection2(sm2.getDirection2());
+        result.setFood(sm1.getFood());
+        result.setMatrix(sm1.getMatrix());
+        result.setNodeArray(sm1.getNodeArray());
+        result.setNodeArray2(sm2.getNodeArray2());
+        result.setRunning(sm1.isRunning());
+        result.setScore1(sm1.getScore1());
+        result.setScore2(sm1.getScore2());
+        result.setSpeedChangeRate(sm1.getSpeedChangeRate());
+        result.setTimeInterval(sm1.getTimeInterval());
+        
+        return result;
     }
 }
