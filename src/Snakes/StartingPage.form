@@ -9,15 +9,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtIP" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                          <Component id="btnConnect" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="63" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="txtIP" pref="210" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnConnect" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -38,7 +36,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnConnect">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Connect"/>
+            <Property name="text" type="java.lang.String" value="Start"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConnectActionPerformed"/>
@@ -49,6 +47,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="bounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
+      <Rectangle value="[400, 200, 400, 250]"/>
+    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[400, 250]"/>
     </Property>
@@ -121,7 +122,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnHost">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Host Game"/>
+        <Property name="text" type="java.lang.String" value="MultiPlayer"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHostActionPerformed"/>

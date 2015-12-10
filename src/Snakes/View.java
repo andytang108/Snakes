@@ -123,6 +123,7 @@ public class View implements Observer {
             Node n = (Node) it.next();
             drawNode(g, n);
         }
+        g.setColor(Color.GREEN);
         while (it2.hasNext()) {
             Node n2 = (Node) it2.next();
             drawNode(g, n2);
@@ -172,7 +173,7 @@ public class View implements Observer {
         labelScore.setText(s);
     }
     public void updateScore2() {
-        String s = "Score: " + smodel.getScore1();
+        String s = "Score1: " + smodel.getScore1()+" Score2: "+smodel.getScore2();
         labelScore.setText(s);
     }
 

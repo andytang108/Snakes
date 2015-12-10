@@ -35,7 +35,7 @@ public class StartingPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnJoin = new javax.swing.JButton();
 
-        btnConnect.setText("Connect");
+        btnConnect.setText("Start");
         btnConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConnectActionPerformed(evt);
@@ -48,13 +48,12 @@ public class StartingPage extends javax.swing.JFrame {
             diaHostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(diaHostLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(diaHostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIP)
-                    .addGroup(diaHostLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(btnConnect)
-                        .addGap(0, 63, Short.MAX_VALUE)))
+                .addComponent(txtIP, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diaHostLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnConnect)
+                .addGap(72, 72, 72))
         );
         diaHostLayout.setVerticalGroup(
             diaHostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -67,6 +66,7 @@ public class StartingPage extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(400, 200, 400, 250));
         setMinimumSize(new java.awt.Dimension(400, 250));
         setPreferredSize(new java.awt.Dimension(400, 250));
         setResizable(false);
@@ -78,7 +78,7 @@ public class StartingPage extends javax.swing.JFrame {
             }
         });
 
-        btnHost.setText("Host Game");
+        btnHost.setText("MultiPlayer");
         btnHost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHostActionPerformed(evt);

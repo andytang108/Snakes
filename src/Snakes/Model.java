@@ -25,7 +25,7 @@ class Model extends Observable implements Runnable {
     int direction = 2;                          // 蛇运行的方向
     boolean running = false;                    // 运行状态
 
-    int timeInterval = 250;                     // 时间间隔，毫秒
+    int timeInterval = 50;                     // 时间间隔，毫秒
     double speedChangeRate = 0.6;              // 每次得速度变化率
     boolean paused = false;                     // 暂停标志
 

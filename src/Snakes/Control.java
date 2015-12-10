@@ -94,6 +94,26 @@ public class Control implements KeyListener{
                             smodel.changeDirection2(Model.RIGHT,1);
                         }
                         break;
+                    case KeyEvent.VK_W:
+                        
+                            smodel.changeDirection2(Model.UP,2);
+                        
+                        break;
+                    case KeyEvent.VK_S:
+                        
+                            smodel.changeDirection2(Model.DOWN,2);
+                        
+                        break;
+                    case KeyEvent.VK_A:
+                        
+                            smodel.changeDirection2(Model.LEFT,2);
+                        
+                        break;
+                    case KeyEvent.VK_D:
+                        
+                            smodel.changeDirection2(Model.RIGHT,2);
+                        
+                        break;
                     case KeyEvent.VK_ADD:
                     case KeyEvent.VK_PAGE_UP:
                         smodel.speedUp();

@@ -39,12 +39,12 @@ class ServerModel extends Model{
     private void reset2(){
         setDirection1(Model.UP);
         setDirection2(Model.DOWN);// 蛇运行的方向
-        timeInterval = 200;                     // 时间间隔，毫秒
+        timeInterval = 150;                     // 时间间隔，毫秒
         paused = false;                         // 暂停标志
         setScore1(0);
         setScore2(0);// 得分   
         running = true;
-        this.setPlayer(2);
+        this.setPlayer(1);
 
         // initial matirx, 全部清0
         matrix = new boolean[maxX][];
@@ -116,7 +116,7 @@ class ServerModel extends Model{
                 if (x2 == food.x && y2 == food.y) {       
                     getNodeArray2().addFirst(food);           
 
-                    setScore2(getScore2() + 10+ timeInterval/50);
+                    setScore2(getScore2() + 5+ timeInterval/30);
                     
                     food = createFood();               
                     matrix[food.x][food.y] = true;      
@@ -164,7 +164,7 @@ class ServerModel extends Model{
 
                     // 分数规则，与移动改变方向的次数和速度两个元素有关
                     
-                    setScore1(getScore1() + 5+ timeInterval/50);
+                    setScore1(getScore1() + 5+ timeInterval/30);
                     
                     food = createFood();               
                     matrix[food.x][food.y] = true;      
@@ -199,37 +199,22 @@ class ServerModel extends Model{
                     setChanged();           // Model通知View数据已经更新
                     notifyObservers();
                 }else if(!moveOn1()) {
-                    if(this.getPlayer()==1){
-                        JOptionPane.showMessageDialog(null,
-                                "Your final score is "+(getScore1()-150)+". You lost!!!",
-                                "Get Rekt",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        break;
-                    }else{
-                        JOptionPane.showMessageDialog(null,
-                            "Your final score is "+getScore2()+". You win!!!",
-                            "Congrat!",
+                    JOptionPane.showMessageDialog(null,
+                            "The winner's score is "+getScore2()+". Player2 win!!!",
+                            "Game Over",
                             JOptionPane.INFORMATION_MESSAGE);
                         break;
-                    }
-                   
                 }else{
-                    if(this.getPlayer()==1){
-                        JOptionPane.showMessageDialog(null,
-                            "Your final score is "+getScore1()+". You win!!!",
-                            "Congrat!",
-                            JOptionPane.INFORMATION_MESSAGE);
-                        break;
-                    }else{
-                        JOptionPane.showMessageDialog(null,
-                                "Your final score is "+(getScore2()-150)+". You lost!!!",
-                                "Get Rekt",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        break;
-                    }
                     
+                    JOptionPane.showMessageDialog(null,
+                            "The winner's score is "+getScore1()+". Player1 win!!!",
+                            "Game Over",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    break;
                 }
+                    
             }
+            
         }
         running = false;
     }
