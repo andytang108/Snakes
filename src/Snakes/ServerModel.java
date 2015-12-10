@@ -44,7 +44,7 @@ class ServerModel extends Model{
         setScore1(0);
         setScore2(0);// 得分   
         running = true;
-        this.setPlayer(1);
+        this.setPlayer(2);
 
         // initial matirx, 全部清0
         matrix = new boolean[maxX][];
@@ -199,17 +199,35 @@ class ServerModel extends Model{
                     setChanged();           // Model通知View数据已经更新
                     notifyObservers();
                 }else if(!moveOn1()) {
-                    JOptionPane.showMessageDialog(null,
-                            "Your final score is "+(getScore1()-150)+". You lost!!!",
-                            "Get Rekt",
+                    if(this.getPlayer()==1){
+                        JOptionPane.showMessageDialog(null,
+                                "Your final score is "+(getScore1()-150)+". You lost!!!",
+                                "Get Rekt",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    }else{
+                        JOptionPane.showMessageDialog(null,
+                            "Your final score is "+getScore2()+". You win!!!",
+                            "Congrat!",
                             JOptionPane.INFORMATION_MESSAGE);
-                    break;
+                        break;
+                    }
+                   
                 }else{
-                    JOptionPane.showMessageDialog(null,
+                    if(this.getPlayer()==1){
+                        JOptionPane.showMessageDialog(null,
                             "Your final score is "+getScore1()+". You win!!!",
                             "Congrat!",
                             JOptionPane.INFORMATION_MESSAGE);
-                    break;
+                        break;
+                    }else{
+                        JOptionPane.showMessageDialog(null,
+                                "Your final score is "+(getScore2()-150)+". You lost!!!",
+                                "Get Rekt",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    }
+                    
                 }
             }
         }
