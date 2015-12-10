@@ -17,16 +17,18 @@ import java.util.Random;
 
 
 class ServerModel extends Model{
-    LinkedList nodeArray2 = new LinkedList(); // 蛇体1,2
+    private LinkedList nodeArray2 = new LinkedList(); // 蛇体1,2
     
     
-    int direction1 = 2;
-    int direction2 = 4;                             // 蛇运行的方向
+    private int direction1 = 2;
+    private int direction2 = 4;                             // 蛇运行的方向
 
    
-    int score1 = 0;
-    int score2 = 0;// 得分
-
+    private int score1 = 0;
+    private int score2 = 0;// 得分
+    
+    private int player;
+    
     
     public ServerModel(int maxX, int maxY) {
         super(maxX,maxY);
@@ -35,13 +37,14 @@ class ServerModel extends Model{
     }
 
     private void reset2(){
-        direction1 = Model.UP;
-        direction2 = Model.DOWN;// 蛇运行的方向
+        setDirection1(Model.UP);
+        setDirection2(Model.DOWN);// 蛇运行的方向
         timeInterval = 200;                     // 时间间隔，毫秒
         paused = false;                         // 暂停标志
-        score1 = 0;
-        score2 = 0;// 得分   
+        setScore1(0);
+        setScore2(0);// 得分   
         running = true;
+        this.setPlayer(1);
 
         // initial matirx, 全部清0
         matrix = new boolean[maxX][];
@@ -60,12 +63,12 @@ class ServerModel extends Model{
             nodeArray.addLast(new Node(x, y));
             matrix[x][y] = true;
         }
-        nodeArray2.clear();
+        getNodeArray2().clear();
         for (int i = 1; i < initArrayLength+1; ++i) {
             int x2 = maxX / 2 - i;
             int y2 = maxY / 2;
             
-            nodeArray2.addLast(new Node(x2, y2));
+            getNodeArray2().addLast(new Node(x2, y2));
             matrix[x2][y2] = true;
         }
         
@@ -78,23 +81,23 @@ class ServerModel extends Model{
     public void changeDirection2(int newDirection, int which) {
         // 改变的方向不能与原来方向同向或反向
         if(which == 1){
-            if (direction1 % 2 != newDirection % 2) {
-                direction1 = newDirection;
+            if (getDirection1() % 2 != newDirection % 2) {
+                setDirection1(newDirection);
             }
         }
         if(which == 2){
-            if (direction2 % 2 != newDirection % 2) {
-                direction2 = newDirection;
+            if (getDirection2() % 2 != newDirection % 2) {
+                setDirection2(newDirection);
             }
         }
     }
     
     public boolean moveOn2(){
-        Node n2 = (Node) nodeArray2.getFirst();//蛇2
+        Node n2 = (Node) getNodeArray2().getFirst();//蛇2
         int x2 = n2.x;
         int y2 = n2.y;
         // 根据方向增减坐标值
-        switch (direction2) {
+        switch (getDirection2()) {
             case UP:
                 y2--;
                 break;
@@ -111,9 +114,9 @@ class ServerModel extends Model{
         if ((0 <= x2 && x2 < maxX) && (0 <= y2 && y2 < maxY)) {
             if (matrix[x2][y2]) {        
                 if (x2 == food.x && y2 == food.y) {       
-                    nodeArray2.addFirst(food);           
+                    getNodeArray2().addFirst(food);           
 
-                    score2 += 10+ timeInterval/50;
+                    setScore2(getScore2() + 10+ timeInterval/50);
                     
                     food = createFood();               
                     matrix[food.x][food.y] = true;      
@@ -122,9 +125,9 @@ class ServerModel extends Model{
                     return false;
                
             } else {                 
-                nodeArray2.addFirst(new Node(x2, y2));
+                getNodeArray2().addFirst(new Node(x2, y2));
                 matrix[x2][y2] = true;
-                n2 = (Node) nodeArray2.removeLast();
+                n2 = (Node) getNodeArray2().removeLast();
                 matrix[n2.x][n2.y] = false;
                 return true;
             }
@@ -138,7 +141,7 @@ class ServerModel extends Model{
         int x = n.x;
         int y = n.y;
         // 根据方向增减坐标值
-        switch (direction1) {
+        switch (getDirection1()) {
             case UP:
                 y--;
                 break;
@@ -161,7 +164,7 @@ class ServerModel extends Model{
 
                     // 分数规则，与移动改变方向的次数和速度两个元素有关
                     
-                    score1 += 5+ timeInterval/50;
+                    setScore1(getScore1() + 5+ timeInterval/50);
                     
                     food = createFood();               
                     matrix[food.x][food.y] = true;      
@@ -197,13 +200,13 @@ class ServerModel extends Model{
                     notifyObservers();
                 }else if(!moveOn1()) {
                     JOptionPane.showMessageDialog(null,
-                            "Your final score is "+score1+". But you lost!!!",
+                            "Your final score is "+(getScore1()-150)+". You lost!!!",
                             "Get Rekt",
                             JOptionPane.INFORMATION_MESSAGE);
                     break;
                 }else{
                     JOptionPane.showMessageDialog(null,
-                            "Your final score is "+score1+". You win!!!",
+                            "Your final score is "+getScore1()+". You win!!!",
                             "Congrat!",
                             JOptionPane.INFORMATION_MESSAGE);
                     break;
@@ -235,5 +238,89 @@ class ServerModel extends Model{
 
     public void changePauseState() {
         paused = !paused;
+    }
+
+    /**
+     * @return the player
+     */
+    public int getPlayer() {
+        return player;
+    }
+
+    /**
+     * @param player the player to set
+     */
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+
+    /**
+     * @return the nodeArray2
+     */
+    public LinkedList getNodeArray2() {
+        return nodeArray2;
+    }
+
+    /**
+     * @param nodeArray2 the nodeArray2 to set
+     */
+    public void setNodeArray2(LinkedList nodeArray2) {
+        this.nodeArray2 = nodeArray2;
+    }
+
+    /**
+     * @return the direction1
+     */
+    public int getDirection1() {
+        return direction1;
+    }
+
+    /**
+     * @param direction1 the direction1 to set
+     */
+    public void setDirection1(int direction1) {
+        this.direction1 = direction1;
+    }
+
+    /**
+     * @return the direction2
+     */
+    public int getDirection2() {
+        return direction2;
+    }
+
+    /**
+     * @param direction2 the direction2 to set
+     */
+    public void setDirection2(int direction2) {
+        this.direction2 = direction2;
+    }
+
+    /**
+     * @return the score1
+     */
+    public int getScore1() {
+        return score1;
+    }
+
+    /**
+     * @param score1 the score1 to set
+     */
+    public void setScore1(int score1) {
+        this.score1 = score1;
+    }
+
+    /**
+     * @return the score2
+     */
+    public int getScore2() {
+        return score2;
+    }
+
+    /**
+     * @param score2 the score2 to set
+     */
+    public void setScore2(int score2) {
+        this.score2 = score2;
     }
 }
