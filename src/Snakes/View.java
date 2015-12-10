@@ -20,7 +20,9 @@ import java.util.Observer;
 public class View implements Observer {
     Control control = null;
     Model model = null;
-
+    ServerModel smodel = null;
+    String type = "model";
+    
     JFrame mainFrame;
     Canvas paintCanvas;
     JLabel labelScore;
@@ -67,7 +69,75 @@ public class View implements Observer {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
     }
+    
+    public View(ServerModel model, Control control) {
+        this.smodel = model;
+        this.control = control;
+        this.type = "smodel";
 
+        mainFrame = new JFrame("MultiSnake");
+
+        Container cp = mainFrame.getContentPane();
+
+        
+        labelScore = new JLabel("Score:");
+        cp.add(labelScore, BorderLayout.NORTH);
+
+        
+        paintCanvas = new Canvas();
+        paintCanvas.setSize(canvasWidth + 1, canvasHeight + 1);
+        paintCanvas.addKeyListener(control);
+        cp.add(paintCanvas, BorderLayout.CENTER);
+
+        
+        JPanel panelButtom = new JPanel();
+        panelButtom.setLayout(new BorderLayout());
+        JLabel labelHelp;
+        labelHelp = new JLabel("PageUp, PageDown for speed;", JLabel.CENTER);
+        panelButtom.add(labelHelp, BorderLayout.NORTH);
+        labelHelp = new JLabel("ENTER or R or S for start;", JLabel.CENTER);
+        panelButtom.add(labelHelp, BorderLayout.CENTER);
+        labelHelp = new JLabel("SPACE or P for pause", JLabel.CENTER);
+        panelButtom.add(labelHelp, BorderLayout.SOUTH);
+        cp.add(panelButtom, BorderLayout.SOUTH);
+
+        mainFrame.addKeyListener(control);
+        mainFrame.pack();
+        mainFrame.setResizable(false);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setVisible(true);
+    }
+
+    void repaint2() {
+        Graphics g = paintCanvas.getGraphics();
+
+        //draw background
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, canvasWidth, canvasHeight);
+
+        // draw the snake
+        g.setColor(Color.ORANGE);
+        LinkedList na = smodel.nodeArray;
+        LinkedList na2 = smodel.nodeArray2;
+        Iterator it = na.iterator();
+        Iterator it2 = na2.iterator();
+        while (it.hasNext()) {
+            Node n = (Node) it.next();
+            drawNode(g, n);
+        }
+        while (it2.hasNext()) {
+            Node n2 = (Node) it2.next();
+            drawNode(g, n2);
+        }
+
+        // draw the food
+        g.setColor(Color.RED);
+        Node n = smodel.food;
+        drawNode(g, n);
+
+        updateScore();
+    }
+    
     void repaint() {
         Graphics g = paintCanvas.getGraphics();
 
@@ -105,6 +175,11 @@ public class View implements Observer {
     }
 
     public void update(Observable o, Object arg) {
-        repaint();
+        if(this.type.equals("model")){
+            repaint();
+        }
+        else{
+            repaint2();
+        }
     }
 }

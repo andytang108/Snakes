@@ -136,13 +136,7 @@ public class StartingPage extends javax.swing.JFrame {
 
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
         // TODO add your handling code here:
-        Model model = new Model(30,30);
-       Control control = new Control(model);
-       View view = new View(model,control);
-       //添加一个观察者，让view成为model的观察者
-       model.addObserver(view);
-      
-       (new Thread(model)).start();
+        Snakes.main2();
     }//GEN-LAST:event_btnConnectActionPerformed
 
     /**
