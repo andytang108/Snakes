@@ -27,9 +27,9 @@ class Model extends Observable implements Runnable {
 
     private int timeInterval = 250;                     // 时间间隔，毫秒
     private double speedChangeRate = 0.6;              // 每次得速度变化率
-    private boolean paused = false;                     // 暂停标志
+    static boolean paused = false;                     // 暂停标志
 
-    int score = 0;                              // 得分
+    static int score = 0;                              // 得分
 
     // UP and DOWN should be even
     // RIGHT and LEFT should be odd
@@ -112,7 +112,7 @@ class Model extends Observable implements Runnable {
 
                     // 分数规则，与移动改变方向的次数和速度两个元素有关
                     
-                    score += 10+ getTimeInterval()/50;
+                    score += 1000 * 1/timeInterval ;
                     
                     setFood(createFood());               
                     getMatrix()[getFood().x][getFood().y] = true;      
@@ -178,7 +178,19 @@ class Model extends Observable implements Runnable {
     }
 
     public void changePauseState() {
-        setPaused(!isPaused());
+        paused = !paused;
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("The game is paused."));
+        Object[] btnContinue = {"Continue"};
+        if (paused == true)
+        {
+            int result = JOptionPane.showOptionDialog(null, panel, "Notice", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, btnContinue, null);
+            if (result == JOptionPane.OK_OPTION)
+            {
+                paused = false;
+            }
+        }
     }
 
     /**
