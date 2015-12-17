@@ -57,32 +57,6 @@ public class Control implements KeyListener{
                 }
             }
         }
-        // 按键导致重新启动游戏
-        if (keyCode == KeyEvent.VK_R ||
-                keyCode == KeyEvent.VK_S ||
-                keyCode == KeyEvent.VK_ENTER) {
-            if (Model.score != 0)
-            {
-                //JPanel panel = new JPanel();
-                //panel.add(new JLabel("The game is paused."));
-                //Object[] btn = {"Continue"};
-                Model.paused = true;
-                int result = JOptionPane.showConfirmDialog(null, "Are you sure to restart the game?", "Notice", JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION)
-                {
-                    
-                }
-                else
-                {
-                    Model.paused = false;
-                    return;
-                }
-            }
-            else
-            {
-                model.reset();
-            }
-        }
         if(smodel != null){
             if (smodel.isRunning()){
                 int player = smodel.getPlayer();
