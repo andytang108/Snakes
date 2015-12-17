@@ -27,9 +27,9 @@ class Model extends Observable implements Runnable {
 
     private int timeInterval = 250;                     // 时间间隔，毫秒
     private double speedChangeRate = 0.6;              // 每次得速度变化率
-    static boolean paused = false;                     // 暂停标志
+    boolean paused = false;                         // 暂停标志
 
-    static int score = 0;                              // 得分
+    int score = 0;                                  // 得分
 
     // UP and DOWN should be even
     // RIGHT and LEFT should be odd
