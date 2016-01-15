@@ -27,7 +27,7 @@ public class Control implements KeyListener{
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         if(model != null){
-            if (model.isRunning()){
+            if (model.running){
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
                         model.changeDirection(Model.UP);
@@ -58,9 +58,8 @@ public class Control implements KeyListener{
             }
         }
         if(smodel != null){
-            if (smodel.isRunning()){
+            if (smodel.running){
                 int player = smodel.getPlayer();
-
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
                         if(player == 2){

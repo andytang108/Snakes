@@ -22,12 +22,7 @@ public class Snakes {
        (new Thread(model)).start();
    }
    public static void main2(){
-       Client c = new Client("localhost",9999);
-       String text = c.getText();
-       int playerNum = Integer.parseInt(text);
-       System.out.print(playerNum);
-       
-       ServerModel model = new ServerModel(30,30,playerNum);
+       ServerModel model = new ServerModel(30,30);
        Control control = new Control(model);
        View view = new View(model,control);
        

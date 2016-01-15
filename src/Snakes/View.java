@@ -115,7 +115,7 @@ public class View implements Observer {
 
         // draw the snake
         g.setColor(Color.ORANGE);
-        LinkedList na = smodel.getNodeArray();
+        LinkedList na = smodel.nodeArray;
         LinkedList na2 = smodel.getNodeArray2();
         Iterator it = na.iterator();
         Iterator it2 = na2.iterator();
@@ -130,7 +130,7 @@ public class View implements Observer {
 
         // draw the food
         g.setColor(Color.RED);
-        Node n = smodel.getFood();
+        Node n = smodel.food;
         drawNode(g, n);
 
         updateScore2();
@@ -145,7 +145,7 @@ public class View implements Observer {
 
         // draw the snake
         g.setColor(Color.BLACK);
-        LinkedList na = model.getNodeArray();
+        LinkedList na = model.nodeArray;
         Iterator it = na.iterator();
         while (it.hasNext()) {
             Node n = (Node) it.next();
@@ -154,7 +154,7 @@ public class View implements Observer {
 
         // draw the food
         g.setColor(Color.RED);
-        Node n = model.getFood();
+        Node n = model.food;
         drawNode(g, n);
 
         updateScore();
